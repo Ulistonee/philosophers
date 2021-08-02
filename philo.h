@@ -2,30 +2,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-#define PHT_SIZE 5
-#define Sleep(X) sleep(X)
-#define wait() scanf("5")
 
-typedef struct s_philosopher
+typedef struct s_philo
 {
-	const char						*name;
-	unsigned						left_fork;
-	unsigned						right_fork;
-}				t_philospher;
 
-typedef struct s_table
+}				t_philo;
+
+typedef struct s_args
 {
-	pthread_mutex_t					forks[PHT_SIZE];
-}				t_table;
+	int			number_of_philo;
+	int			to_die;
+	int			to_eat;
+	int			to_sleep;
+	int			times_must_to_eat;
+}				t_args;
 
-typedef struct s_philosopher_args
+typedef struct s_all
 {
-	const t_philospher				*philosopher;
-	const t_table					*table;
-}				t_philosopher_args;
+	t_args		*args;
+}			t_all;
 
-void			init_philosopher(t_philospher *philosopher, const char *name, unsigned left_fork, unsigned right_fork);
-void			init_table(t_table *table);
+int				parser(char **argv, t_all *all);
+int				ft_atoi(const char *str);
+int				ft_isdigit(int a);
+
+
 
 
 
