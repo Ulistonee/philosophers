@@ -1,38 +1,40 @@
 #include "philo.h"
 
-void	init_all(t_all *all)
+void	print_philos(t_all *all)
 {
-	all->args->number_of_philo = 0;
-	all->args->to_die = 0;
-	all->args->to_eat = 0;
-	all->args->to_sleep = 0;
-	all->args->times_must_to_eat = 0;
+	int		i;
+
+	i = 0;
+	while (i < all->args.number_of_philo)
+	{
+		printf("name: %d | left_fork: %d | right_fork: %d |\n", all->philo[i]->name, all->philo[i]->left_fork, all->philo[i]->right_fork);
+		i++;
+	}
 }
 
-void	print(t_all *all)
+void	print_values(t_all *all)
 {
-	printf("number of philo - %d\n", all->args->number_of_philo);
-	printf("time to die - %d\n", all->args->to_die);
-	printf("time to eat - %d\n", all->args->to_eat);
-	printf("time to sleep - %d\n", all->args->to_sleep);
-	if (all->args->times_must_to_eat)
-		printf("times must to eat - %d\n", all->args->times_must_to_eat);
+	printf("number of philo - %d\n", all->args.number_of_philo);
+	printf("time to die - %d\n", all->args.to_die);
+	printf("time to eat - %d\n", all->args.to_eat);
+	printf("time to sleep - %d\n", all->args.to_sleep);
+	if (all->args.times_must_to_eat)
+		printf("times must to eat - %d\n", all->args.times_must_to_eat);
 }
 
 int	main(int argc, char **argv)
 {
 	t_all		all;
 
-	if (argc < 4)
+	if (argc < 5)
 	{
 		printf("Invalid number of arguments\n");
 		return (1);
 	}
 	if (argc == 5 || argc == 6)
-	{
-		init_all(&all);
-		parser(argv, &all);
-	}
-	print(&all);
+		if (parser(argv, &all) == 1)
+			return (1);
+	print_values(&all);
+	print_philos(&all);
 	return (0);
 }

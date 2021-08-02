@@ -1,5 +1,38 @@
 #include "philo.h"
 
+int	ft_free(t_philo **str, int i)
+{
+	while (i >= 0)
+	{
+		free(str[i]);
+		i--;
+	}
+	free(str);
+	return (1);
+}
+
+void	init_philo(t_philo *philo, int name, int left_fork, int right_fork)
+{
+	philo->name = name;
+	philo->left_fork = left_fork;
+	philo->right_fork = right_fork;
+}
+
+void	init_philosophers(t_philo **philo, int forks)
+{
+	int			i;
+
+	i = 0;
+	while (i < forks)
+	{
+		if (i == forks - 1)
+			init_philo(philo[i], i, i, 0);
+		else
+			init_philo(philo[i], i, i, i + 1);
+		i++;
+	}
+}
+
 int	ft_isdigit(int a)
 {
 	if (a > 47 && a < 58)
