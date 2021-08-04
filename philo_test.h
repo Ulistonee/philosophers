@@ -14,7 +14,13 @@ typedef struct s_philosopher
 	const char						*name;
 	unsigned						left_fork;
 	unsigned						right_fork;
+	pthread_t						thread;
 }				t_philospher;
+
+typedef struct s_threads
+{
+	pthread_t						*threads;
+}				t_threads;
 
 typedef struct s_table
 {

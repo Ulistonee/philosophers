@@ -1,5 +1,20 @@
 #include "philo.h"
 
+int	get_my_time()
+{
+	struct timeval		tv;
+	int					get_time;
+
+	get_time = gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+}
+
+int	print_and_return(char *str, int ret)
+{
+	printf("%s\n", str);
+	return (ret);
+}
+
 int	ft_free(t_philo **str, int i)
 {
 	while (i >= 0)
@@ -9,28 +24,6 @@ int	ft_free(t_philo **str, int i)
 	}
 	free(str);
 	return (1);
-}
-
-void	init_philo(t_philo *philo, int name, int left_fork, int right_fork)
-{
-	philo->name = name;
-	philo->left_fork = left_fork;
-	philo->right_fork = right_fork;
-}
-
-void	init_philosophers(t_philo **philo, int forks)
-{
-	int			i;
-
-	i = 0;
-	while (i < forks)
-	{
-		if (i == forks - 1)
-			init_philo(philo[i], i, i, 0);
-		else
-			init_philo(philo[i], i, i, i + 1);
-		i++;
-	}
 }
 
 int	ft_isdigit(int a)

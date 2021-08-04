@@ -1,5 +1,34 @@
 #include "philo.h"
 
+int	malloc_philo_and_mutex(t_all *all)
+{
+	int			i;
+	int			n;
+
+	if (!(all->forks = (pthread_mutex_t *) malloc(sizeof (pthread_mutex_t) * all->args.forks)))
+		print_and_return("Malloc error\n", 1);
+	i = 0;
+	while (i < all->args.forks)
+	{
+		n = pthread_mutex_init(&all->forks[i], NULL);
+//		printf("status for init - %d\n", n);
+		i++;
+	}
+	all->philo = (t_philo **)malloc(sizeof (t_philo *) * all->args.number_of_philo + 1);
+	if (!all->philo)
+		print_and_return("Malloc error\n", 1);
+	i = 0;
+	while (i < all->args.number_of_philo)
+	{
+		all->philo[i] = (t_philo *) malloc(sizeof (t_philo));
+		if (!all->philo[i])
+			return (ft_free(all->philo, all->args.number_of_philo));
+		i++;
+	}
+	all->philo[i] = NULL;
+	return (0);
+}
+
 int	value_checker(t_all *all)
 {
 	if (all->args.number_of_philo == -1 || all->args.to_die == -1 ||
@@ -14,8 +43,6 @@ int	value_checker(t_all *all)
 
 int	parse_args(char **argv, t_all *all)
 {
-	int			i;
-
 	all->args.number_of_philo = ft_atoi(argv[1]);
 	all->args.to_die = ft_atoi(argv[2]);
 	all->args.to_eat = ft_atoi(argv[3]);
@@ -23,34 +50,10 @@ int	parse_args(char **argv, t_all *all)
 	if (argv[5])
 		all->args.times_must_to_eat = ft_atoi(argv[5]);
 	if (value_checker(all))
-		exit(1);
+		return (1);
 	all->args.forks = all->args.number_of_philo;
-	if (!(all->forks = (pthread_mutex_t *) malloc(sizeof (pthread_mutex_t) * all->args.forks)))
-	{
-		printf("Malloc error\n");
+	if (malloc_philo_and_mutex(all) == 1)
 		return (1);
-	}
-	i = 0;
-	while (i < all->args.forks)
-	{
-		pthread_mutex_init(all->forks, NULL);
-		i++;
-	}
-	all->philo = (t_philo **)malloc(sizeof (t_philo *) * all->args.number_of_philo + 1);
-	if (!all->philo)
-	{
-		printf("Malloc error\n");
-		return (1);
-	}
-	i = 0;
-	while (i < all->args.number_of_philo)
-	{
-		all->philo[i] = (t_philo *) malloc(sizeof (t_philo));
-		if (!all->philo[i])
-			return (ft_free(all->philo, all->args.number_of_philo));
-		i++;
-	}
-	all->philo[i] = NULL;
 	return (0);
 }
 
@@ -85,23 +88,31 @@ int	is_number(char *value)
 	return (0);
 }
 
-int	parser(char **argv, t_all *all)
+int	parser(int argc, char **argv, t_all *all)
 {
 	int		i;
 
-	init_args(all);
-	i = 1;
-	while (argv[i] != NULL)
+	if (argc < 5 || argc > 6)
 	{
-		if (is_number(argv[i]))
-		{
-			printf("Numeric argument required\n");
-			return (1);
-		}
-		i++;
-	}
-	if (parse_args(argv, all) == 1)
+		printf("Invalid number of arguments\n");
 		return (1);
-	init_philosophers(all->philo, all->args.forks);
+	}
+	if (argc == 5 || argc == 6)
+	{
+		init_args(all);
+		i = 1;
+		while (argv[i] != NULL)
+		{
+			if (is_number(argv[i]))
+			{
+				printf("Numeric argument required\n");
+				return (1);
+			}
+			i++;
+		}
+		if (parse_args(argv, all) == 1)
+			return (1);
+		init_philosophers(all->philo, all->args.forks, all);
+	}
 	return (0);
 }

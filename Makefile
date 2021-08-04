@@ -2,13 +2,15 @@ NAME = philo
 
 SRCS = 		main.c \
 			parser.c \
-			utils.c
+			utils.c \
+			life_cycle.c \
+			philo.c
 
 #OBJ = $(patsubst %.c, %.o, $(SRC))
 
 INCLUDE = philo.h
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = #-Wall -Wextra -Werror
 
 all: $(NAME)
 

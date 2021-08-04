@@ -31,7 +31,6 @@ pthread_mutex_t entry_point = PTHREAD_MUTEX_INITIALIZER;
 		printf("%s finished dinner\n", philosopher->name);
 //		wait();
 	} while (1);
-
 	}
 
 

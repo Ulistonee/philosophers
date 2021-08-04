@@ -24,17 +24,13 @@ void	print_values(t_all *all)
 
 int	main(int argc, char **argv)
 {
-	t_all		all;
+	t_all				all;
 
-	if (argc < 5)
-	{
-		printf("Invalid number of arguments\n");
+	if (parser(argc, argv, &all) == 1)
 		return (1);
-	}
-	if (argc == 5 || argc == 6)
-		if (parser(argv, &all) == 1)
-			return (1);
-	print_values(&all);
-	print_philos(&all);
+//	print_values(&all);
+//	print_philos(&all);
+	pthread_start(&all);
+	usleep(100000);
 	return (0);
 }
