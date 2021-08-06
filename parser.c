@@ -11,7 +11,6 @@ int	malloc_philo_and_mutex(t_all *all)
 	while (i < all->args.forks)
 	{
 		n = pthread_mutex_init(&all->forks[i], NULL);
-//		printf("status for init - %d\n", n);
 		i++;
 	}
 	all->philo = (t_philo **)malloc(sizeof (t_philo *) * all->args.number_of_philo + 1);

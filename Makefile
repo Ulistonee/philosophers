@@ -15,7 +15,7 @@ FLAGS = #-Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(INCLUDE) $(SRCS)
-			gcc $(FLAGS) $(SRCS) -o $(NAME)
+			gcc $(FLAGS) $(SRCS) -pthread -o $(NAME)
 
 clean:
 			rm -f $(OBS)

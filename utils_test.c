@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "philo_test.h"
 
 //pthread_mutex_t entry_point = PTHREAD_MUTEX_INITIALIZER;
 

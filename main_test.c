@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "philo_test.h"
 
 pthread_mutex_t entry_point = PTHREAD_MUTEX_INITIALIZER;
 
@@ -7,8 +7,12 @@ pthread_mutex_t entry_point = PTHREAD_MUTEX_INITIALIZER;
 	t_philosopher_args *arg = (t_philosopher_args *) args;
 	const t_philospher *philosopher = arg->philosopher;
 	const t_table *table = arg->table;
-	unsigned randint;
+	unsigned		randint;
+	int				n;
 
+	n = 0;
+	n = n + 1;
+	printf("n - %d\n", n);
 	do
 	{
 		printf("%s started dinner\n", philosopher->name);

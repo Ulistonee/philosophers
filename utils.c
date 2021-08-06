@@ -6,7 +6,7 @@ int	get_my_time()
 	int					get_time;
 
 	get_time = gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 
 int	print_and_return(char *str, int ret)
