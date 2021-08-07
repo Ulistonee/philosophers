@@ -1,6 +1,39 @@
 #include "philo.h"
 
-int	get_my_time()
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	unsigned int	num;
+
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		num = (unsigned int)(n * (-1));
+	}
+	else
+		num = (unsigned int)n;
+	if (num >= 10)
+		ft_putnbr_fd((num / 10), fd);
+	ft_putchar_fd(num % 10 + '0', fd);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int i;
+
+	i = 0;
+	while (s && s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}
+
+u_int64_t	get_my_time()
 {
 	struct timeval		tv;
 	int					get_time;

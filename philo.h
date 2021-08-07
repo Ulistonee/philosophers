@@ -14,6 +14,10 @@ typedef struct s_philo
 	t_all					*all;
 	int 					left_fork;
 	int 					right_fork;
+	u_int64_t				to_die;
+	int						to_eat;
+	int						to_sleep;
+	int						times_must_eat;
 	pthread_t				thread;
 }				t_philo;
 
@@ -29,7 +33,7 @@ typedef struct s_args
 	int						to_die;
 	int						to_eat;
 	int						to_sleep;
-	int						times_must_to_eat;
+	int						times_must_eat;
 }				t_args;
 
 typedef struct s_all
@@ -46,8 +50,11 @@ int				ft_isdigit(int a);
 void			init_philosophers(t_philo **philo, int num_of_forks, t_all *all);
 int				ft_free(t_philo **str, int i);
 int				print_and_return(char *str, int ret);
-int				get_my_time();
-void			pthread_start(t_all *all);
+u_int64_t		get_my_time();
+int				pthread_start(t_all *all);
+void			ft_putstr_fd(char *s, int fd);
+void			ft_putnbr_fd(int n, int fd);
+
 
 #endif
 

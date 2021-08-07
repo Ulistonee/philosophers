@@ -18,8 +18,8 @@ void	print_values(t_all *all)
 	printf("time to die - %d\n", all->args.to_die);
 	printf("time to eat - %d\n", all->args.to_eat);
 	printf("time to sleep - %d\n", all->args.to_sleep);
-	if (all->args.times_must_to_eat)
-		printf("times must to eat - %d\n", all->args.times_must_to_eat);
+	if (all->args.times_must_eat)
+		printf("times must to eat - %d\n", all->args.times_must_eat);
 }
 
 int	main(int argc, char **argv)
@@ -30,7 +30,11 @@ int	main(int argc, char **argv)
 		return (1);
 //	print_values(&all);
 //	print_philos(&all);
-	pthread_start(&all);
-	usleep(100000);
+	if (pthread_start(&all) == 1)
+	{
+		//kill processes
+		//free
+		return (1);
+	}
 	return (0);
 }

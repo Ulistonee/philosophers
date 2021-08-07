@@ -7,6 +7,10 @@ static void	init_philo(t_philo *philo, int name, int left_fork, int right_fork, 
 	philo->name = name;
 	philo->left_fork = left_fork;
 	philo->right_fork = right_fork;
+	philo->to_die = 0;
+	philo->to_eat = 0;
+	philo->to_sleep = 0;
+	philo->times_must_eat = 0;
 }
 
 void	init_philosophers(t_philo **philo, int num_of_forks, t_all *all)
