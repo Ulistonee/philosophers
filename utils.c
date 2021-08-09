@@ -1,5 +1,14 @@
 #include "philo.h"
 
+void	m_sleep(unsigned int ms)
+{
+	long long		res;
+
+	res = get_my_time();
+	while (get_my_time() < (ms + res))
+		usleep(300);
+}
+
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
@@ -33,12 +42,46 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
+void	print_message(u_int64_t time, int philo_name, char *str, t_all *all)
+{
+	ft_putnbr_fd((int)time, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putnbr_fd(philo_name, 1);
+	ft_putstr_fd(str, 1);
+}
+
+void	update_time_and_print(int philo_name, char *str, t_all *all)
+{
+	u_int64_t		now;
+	u_int64_t		timestamp;
+
+	if (all->is_dead == 1)
+		return;
+	pthread_mutex_lock(all->for_print);
+	now = get_my_time();
+	timestamp = now - all->beginning;
+	print_message(timestamp, philo_name, str, all);
+	pthread_mutex_unlock(all->for_print);
+}
+
+
+// my_sleep_in_ms(100)
+void		my_sleep_in_ms(int waiting)
+{
+	u_int64_t		now;
+
+	now = get_my_time(); //5000 + 100
+	while (get_my_time() <  now + waiting)
+	{
+		usleep(100);
+	}
+}
+
 u_int64_t	get_my_time()
 {
 	struct timeval		tv;
-	int					get_time;
 
-	get_time = gettimeofday(&tv, NULL);
+	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 

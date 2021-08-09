@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 {
 	t_all				all;
 
+	all.beginning = get_my_time();
 	if (parser(argc, argv, &all) == 1)
 		return (1);
 //	print_values(&all);

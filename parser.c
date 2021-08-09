@@ -46,12 +46,18 @@ int	parse_args(char **argv, t_all *all)
 	all->args.to_die = ft_atoi(argv[2]);
 	all->args.to_eat = ft_atoi(argv[3]);
 	all->args.to_sleep = ft_atoi(argv[4]);
+	all->is_dead = 0;
 	if (argv[5])
 		all->args.times_must_eat = ft_atoi(argv[5]);
 	if (value_checker(all))
 		return (1);
 	all->args.forks = all->args.number_of_philo;
 	if (malloc_philo_and_mutex(all) == 1)
+		return (1);
+	all->for_print = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
+	if (!all->for_print)
+		return (1);
+	if (pthread_mutex_init(all->for_print, NULL) != 0)
 		return (1);
 	return (0);
 }
