@@ -29,21 +29,13 @@ int	inspector(u_int64_t philo_now, int philo_name, t_all *all)
 	n = 0;
 	if (get_my_time() > philo_now || f_fed(all) == 1) //
 	{
-//		all->is_dead = 1;
-//		printf("philo %d died\n", philo_name);
-//		if (all->fed_up == 1)
-//			update_time_and_print(philo_name, " all philos are fed up\n", all);
-//		else
 		update_time_and_print(philo_name, " died\n", all);
-//		printf("check_1\n");
 		pthread_mutex_lock(all->for_print);
-//		printf("check_2\n");
 		while (n < all->args.forks)
 		{
 			pthread_mutex_unlock(&all->forks[n]);
 			n++;
 		}
-//		printf("check_exit\n");
 		usleep(500);
 		pthread_mutex_unlock(all->for_print);
 		return (1);
@@ -65,8 +57,8 @@ void*	life_cycle(void *args)
 	int				second_fork;
 
 	philo = (t_philo *)args;
-//	if (philo->name % 2 == 0)
-//		usleep(150);
+	if (philo->name % 2 == 0)
+		usleep(100);
 	if (philo->name % 2 == 0)
 	{
 		first_fork = philo->left_fork;
