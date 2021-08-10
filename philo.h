@@ -41,6 +41,7 @@ typedef struct s_all
 	int						is_dead;
 	u_int64_t				beginning;
 	pthread_mutex_t			*for_print;
+	int						fed_up;
 
 }			t_all;
 
@@ -58,8 +59,6 @@ void			print_message(u_int64_t time, int philo_name, char *str, t_all *all);
 void			update_time_and_print(int philo_name, char *str, t_all *all);
 void			my_sleep_in_ms(int waiting);
 void			m_sleep(unsigned int ms);
-
-
 
 #endif
 

@@ -47,6 +47,7 @@ int	parse_args(char **argv, t_all *all)
 	all->args.to_eat = ft_atoi(argv[3]);
 	all->args.to_sleep = ft_atoi(argv[4]);
 	all->is_dead = 0;
+	all->fed_up = 0;
 	if (argv[5])
 		all->args.times_must_eat = ft_atoi(argv[5]);
 	if (value_checker(all))
@@ -69,7 +70,7 @@ void	init_args(t_all *all)
 	all->args.to_die = 0;
 	all->args.to_eat = 0;
 	all->args.to_sleep = 0;
-	all->args.times_must_eat = 0;
+	all->args.times_must_eat = -2;
 }
 
 int	is_number(char *value)

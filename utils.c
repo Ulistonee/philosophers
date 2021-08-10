@@ -44,10 +44,14 @@ void	ft_putstr_fd(char *s, int fd)
 
 void	print_message(u_int64_t time, int philo_name, char *str, t_all *all)
 {
-	ft_putnbr_fd((int)time, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putnbr_fd(philo_name, 1);
-	ft_putstr_fd(str, 1);
+	if (all->is_dead != 1)
+	{
+		ft_putnbr_fd((int)time, 1);
+		ft_putchar_fd(' ', 1);
+		ft_putnbr_fd(philo_name + 1, 1);
+		ft_putstr_fd(str, 1);
+
+	}
 }
 
 void	update_time_and_print(int philo_name, char *str, t_all *all)
@@ -60,7 +64,10 @@ void	update_time_and_print(int philo_name, char *str, t_all *all)
 	pthread_mutex_lock(all->for_print);
 	now = get_my_time();
 	timestamp = now - all->beginning;
+//	if (all->is_dead != 1)
+//	{
 	print_message(timestamp, philo_name, str, all);
+//	}
 	pthread_mutex_unlock(all->for_print);
 }
 

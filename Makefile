@@ -6,7 +6,7 @@ SRCS = 		main.c \
 			life_cycle.c \
 			philo.c
 
-#OBJ = $(patsubst %.c, %.o, $(SRC))
+OBJ = $(patsubst %.c, %.o, $(SRCS))
 
 INCLUDE = philo.h
 
@@ -14,15 +14,19 @@ FLAGS = #-Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(INCLUDE) $(SRCS)
-			gcc $(FLAGS) $(SRCS) -pthread -o $(NAME)
+$(NAME): $(OBJ) $(INCLUDE)
+			gcc $(FLAGS) $(OBJ) -pthread -o $(NAME)
 
 clean:
-			rm -f $(OBS)
+			rm -rf $(OBJ)
 
-fclean: #clean
-			rm -f $(NAME)
+fclean: clean
+			rm -rf $(NAME)
 
 re: fclean all
+
+norm:
+			norminette $(SRCS)
+			norminette $(INCLUDE)
 
 .PHONY: all clean fclean re
