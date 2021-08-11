@@ -12,16 +12,16 @@
 
 #include "philo.h"
 
-void		my_sleep_in_ms(int waiting)
+void	my_sleep_in_ms(int waiting)
 {
 	u_int64_t		now;
 
-	now = get_my_time(); //5000 + 100
-	while (get_my_time() <  now + waiting)
+	now = get_my_time();
+	while (get_my_time() < now + waiting)
 		usleep(100);
 }
 
-u_int64_t	get_my_time()
+u_int64_t	get_my_time(void)
 {
 	struct timeval		tv;
 
@@ -51,8 +51,8 @@ int	ft_atoi(const char *str)
 	i = 0;
 	result = 0;
 	positive = 1;
-	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n') ||
-		   (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
+	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n')
+		|| (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
 		i++;
 	if (str[i] == '-')
 		positive = 0;
@@ -61,8 +61,8 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + str[i] - '0';
-		if (((result > 2147483647) && positive) ||
-			((result > 2147483648) && !positive))
+		if (((result > 2147483647) && positive)
+			|| ((result > 2147483648) && !positive))
 			return (-1);
 		i++;
 	}
@@ -70,4 +70,3 @@ int	ft_atoi(const char *str)
 		result = result * (-1);
 	return ((int)result);
 }
-

@@ -11,7 +11,7 @@ OBJ = $(patsubst %.c, %.o, $(SRCS))
 
 INCLUDE = philo.h
 
-FLAGS = #-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

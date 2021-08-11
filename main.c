@@ -12,6 +12,27 @@
 
 #include "philo.h"
 
+int	is_number(char *value)
+{
+	int	i;
+
+	i = 0;
+	if (value == NULL)
+	{
+		printf("No value found\n");
+		exit(1);
+	}
+	while (value[i] != '\0')
+	{
+		if (value[i] == '-' || value[i] == '+')
+			i++;
+		if (!(ft_isdigit(value[i])))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_free(t_philo **str, int i)
 {
 	while (i >= 0)
@@ -30,12 +51,12 @@ int	ft_free(t_philo **str, int i)
 
 void	free_all(t_all *all)
 {
-	if (all->forks)
+	if (all->f)
 	{
-		free(all->forks);
-		all->forks = NULL;
+		free(all->f);
+		all->f = NULL;
 	}
-	ft_free(all->philo, all->args.number_of_philo);
+	ft_free(all->ph, all->args.n_of_ph);
 	if (all->for_print)
 	{
 		free(all->for_print);
