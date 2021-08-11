@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   life_cycle.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rchalmer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/11 20:07:01 by rchalmer          #+#    #+#             */
+/*   Updated: 2021/08/11 20:07:03 by rchalmer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	f_fed(t_all *all)
@@ -27,7 +39,7 @@ int	inspector(u_int64_t philo_now, int philo_name, t_all *all)
 	int			n;
 
 	n = 0;
-	if (get_my_time() > philo_now || f_fed(all) == 1) //
+	if (get_my_time() > philo_now || f_fed(all) == 1)
 	{
 		update_time_and_print(philo_name, " died\n", all);
 		pthread_mutex_lock(all->for_print);
@@ -50,17 +62,18 @@ int	lock_the_fork(pthread_mutex_t *fork, int is_dead)
 	return (0);
 }
 
-void*	life_cycle(void *args)
+void	*life_cycle(void *args)
 {
-	t_philo 		*philo;
+	t_philo			*philo;
 	int				first_fork;
 	int				second_fork;
 
 	philo = (t_philo *)args;
-	if (philo->name % 2 == 0)
-		usleep(100);
+//	if (philo->name % 2 == 0)
+//		usleep(100);
 	if (philo->name % 2 == 0)
 	{
+		usleep(100);
 		first_fork = philo->left_fork;
 		second_fork = philo->right_fork;
 	}
@@ -85,7 +98,6 @@ void*	life_cycle(void *args)
 		my_sleep_in_ms(philo->all->args.to_sleep);
 		update_time_and_print(philo->name, " is thinking\n", philo->all);
 	}
-//	printf(" %d was exited, ate %d times \n", philo->name, philo->to_eat);
 	return (NULL);
 }
 
@@ -113,15 +125,14 @@ int	pthread_start(t_all *all)
 			}
 			i++;
 		}
-//		printf("check_inspector\n");
 	}
 	i = 0;
-//	printf("check_1\n");
 	while (i < all->args.number_of_philo)
 	{
-		pthread_join(all->philo[i]->thread, &res);
+		if (pthread_join(all->philo[i]->thread, &res) != 0)
+			return (1);
 		i++;
-//		printf("check_2\n");
 	}
+
 	return (0);
 }

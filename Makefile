@@ -4,7 +4,8 @@ SRCS = 		main.c \
 			parser.c \
 			utils.c \
 			life_cycle.c \
-			philo.c
+			philo.c \
+			utils_part_two.c
 
 OBJ = $(patsubst %.c, %.o, $(SRCS))
 

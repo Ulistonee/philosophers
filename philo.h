@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rchalmer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/11 20:06:35 by rchalmer          #+#    #+#             */
+/*   Updated: 2021/08/11 20:06:38 by rchalmer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 #include <unistd.h>
@@ -58,7 +70,9 @@ void			ft_putnbr_fd(int n, int fd);
 void			print_message(u_int64_t time, int philo_name, char *str, t_all *all);
 void			update_time_and_print(int philo_name, char *str, t_all *all);
 void			my_sleep_in_ms(int waiting);
-void			m_sleep(unsigned int ms);
+void			free_all(t_all *all);
+int				ft_isdigit(int a);
+int				ft_atoi(const char *str);
 
 #endif
 
