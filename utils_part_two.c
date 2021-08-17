@@ -18,7 +18,7 @@ void	my_sleep_in_ms(int waiting)
 
 	now = get_my_time();
 	while (get_my_time() < now + waiting)
-		usleep(100);
+		usleep(10);
 }
 
 u_int64_t	get_my_time(void)

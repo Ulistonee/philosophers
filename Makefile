@@ -11,12 +11,14 @@ OBJ = $(patsubst %.c, %.o, $(SRCS))
 
 INCLUDE = philo.h
 
+CC = gcc
+
 FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDE)
-			gcc $(FLAGS) $(OBJ) -pthread -o $(NAME)
+			$(CC) $(FLAGS) $(OBJ) -pthread -o $(NAME)
 
 clean:
 			rm -rf $(OBJ)
