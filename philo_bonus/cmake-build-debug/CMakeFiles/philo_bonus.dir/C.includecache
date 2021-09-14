@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ulistonee/Desktop/philosophers/philo_bonus/main.c
+philo.h
+/home/ulistonee/Desktop/philosophers/philo_bonus/philo.h
+
+/home/ulistonee/Desktop/philosophers/philo_bonus/philo.h
+unistd.h
+-
+stdio.h
+-
+stdlib.h
+-
+pthread.h
+-
+sys/time.h
+-
+sys/wait.h
+-
+fcntl.h
+-
+semaphore.h
+-
+

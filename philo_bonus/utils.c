@@ -55,17 +55,3 @@ void	print_message(u_int64_t time, int philo_name, char *str, t_all *all)
 		ft_putstr_fd(str, 1);
 	}
 }
-
-void	update_time_and_print(int philo_name, char *str, t_all *all)
-{
-	u_int64_t		now;
-	u_int64_t		timestamp;
-
-	if (all->is_dead == 1)
-		return ;
-	pthread_mutex_lock(all->for_print);
-	now = get_my_time();
-	timestamp = now - all->beginning;
-	print_message(timestamp, philo_name, str, all);
-	pthread_mutex_unlock(all->for_print);
-}

@@ -17,6 +17,13 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+# include <semaphore.h>
+
+#define SEM_FORK		"fork"
+#define SEM_INSPECT		"inspect"
+#define SEM_PRINT		"print"
 
 typedef struct s_all	t_all;
 
@@ -24,11 +31,11 @@ typedef struct s_philo
 {
 	int						name;
 	t_all					*all;
-	int						left_fork;
-	int						right_fork;
+//	int						left_fork;
+//	int						right_fork;
 	u_int64_t				to_die;
 	int						to_eat;
-	pthread_t				tr;
+//	pthread_t				tr;
 }				t_philo;
 
 typedef struct s_args
@@ -45,10 +52,13 @@ typedef struct s_all
 {
 	t_args					args;
 	t_philo					**ph;
-	pthread_mutex_t			*f;
+//	pthread_mutex_t			*f;
 	int						is_dead;
 	u_int64_t				beginning;
-	pthread_mutex_t			*for_print;
+//	pthread_mutex_t			*for_print;
+	sem_t 					*forks;
+	sem_t 					*inspect;
+	sem_t 					*print;
 	int						fed_up;
 
 }			t_all;
@@ -73,4 +83,7 @@ int				lock_the_fork(pthread_mutex_t *fork, int is_dead);
 void			eating(t_philo *philo, int first_fork, int second_fork);
 int				wait_for_pthread(int number_of_philos, t_philo *philo);
 int				is_number(char *value);
+int				process_start(t_all *all);
+
+
 #endif

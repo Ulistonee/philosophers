@@ -49,20 +49,20 @@ int	ft_free(t_philo **str, int i)
 	return (1);
 }
 
-void	free_all(t_all *all)
-{
-	if (all->f)
-	{
-		free(all->f);
-		all->f = NULL;
-	}
-	ft_free(all->ph, all->args.n_of_ph);
-	if (all->for_print)
-	{
-		free(all->for_print);
-		all->for_print = NULL;
-	}
-}
+//void	free_all(t_all *all)
+//{
+//	if (all->f)
+//	{
+//		free(all->f);
+//		all->f = NULL;
+//	}
+//	ft_free(all->ph, all->args.n_of_ph);
+//	if (all->for_print)
+//	{
+//		free(all->for_print);
+//		all->for_print = NULL;
+//	}
+//}
 
 int	main(int argc, char **argv)
 {
@@ -71,11 +71,8 @@ int	main(int argc, char **argv)
 	all.beginning = get_my_time();
 	if (parser(argc, argv, &all) == 1)
 		return (1);
-	if (pthread_start(&all) == 1)
-	{
-		free_all(&all);
+	if (process_start(&all) == 1)
 		return (1);
-	}
-	free_all(&all);
+//	free_all(&all);
 	return (0);
 }

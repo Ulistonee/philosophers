@@ -12,20 +12,10 @@
 
 #include "philo.h"
 
-int	malloc_philo_and_mutex(t_all *all)
+int	malloc_philo(t_all *all)
 {
 	int			i;
 
-	all->f = (pthread_mutex_t *) malloc(sizeof (pthread_mutex_t) * all->args.f);
-	if (!all->f)
-		print_and_return("Malloc error\n", 1);
-	i = 0;
-	while (i < all->args.f)
-	{
-		if (pthread_mutex_init(&all->f[i], NULL) != 0)
-			return (1);
-		i++;
-	}
 	all->ph = (t_philo **)malloc(sizeof (t_philo *) * all->args.n_of_ph + 1);
 	if (!all->ph)
 		print_and_return("Malloc error\n", 1);
@@ -66,12 +56,19 @@ int	parse_args(char **argv, t_all *all)
 	if (value_checker(all))
 		return (1);
 	all->args.f = all->args.n_of_ph;
-	if (malloc_philo_and_mutex(all) == 1)
+	if (malloc_philo(all) == 1)
 		return (1);
-	all->for_print = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
-	if (!all->for_print)
+	sem_unlink(SEM_FORK);
+	sem_unlink(SEM_INSPECT);
+	sem_unlink(SEM_PRINT);
+	all->forks = sem_open(SEM_FORK, O_CREAT, 0777, all->args.n_of_ph);
+	if (all->forks == SEM_FAILED)
 		return (1);
-	if (pthread_mutex_init(all->for_print, NULL) != 0)
+	all->inspect = sem_open(SEM_INSPECT, O_CREAT, 0777, 1);
+	if (all->inspect == SEM_FAILED)
+		return (1);
+	all->print = sem_open(SEM_PRINT, O_CREAT, 0777, 1);
+	if (all->print == SEM_FAILED)
 		return (1);
 	return (0);
 }
